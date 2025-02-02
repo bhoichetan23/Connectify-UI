@@ -15,13 +15,12 @@ const Login = () => {
       console.error(err);
     }
   };
-
+  
   return (
     <div className="flex justify-center my-10">
       <div className="card bg-base-300 w-96 shadow-xl">
         <div className="card-body">
           <div>
-           
             <label className="form-control w-full max-w-xs my-2">
               <div className="label">
                 <span className="label-text">Email ID:</span>
