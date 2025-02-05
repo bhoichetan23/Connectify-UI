@@ -11,11 +11,14 @@ const NavBar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
+      const user = await axios.post(
+        BASE_URL + "/logou",
+        {},
+        { withCredentials: true }
+      );
       dispatch(removeUser());
       return navigate("/login");
     } catch (err) {
-      // Error logic maybe redirect to error page
       console.log(err);
     }
   };
