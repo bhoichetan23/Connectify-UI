@@ -1,19 +1,20 @@
 import React from "react";
 import NavBar from "./NavBar";
-import Footer from "./Footer";
 import { Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
 import BASE_URL from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import addUser from "../utils/userSlice";
+import Footer from "./Footer";
 
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((store) => store.user);
 
-  const fetChUser = async () => {
+  const fetchUser = async () => {
+    if (!userData) return;
     try {
       const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
@@ -24,12 +25,12 @@ const Body = () => {
       if (err.status === 401) {
         navigate("/login");
       }
-      console.error(err);
+      console.log(err);
     }
   };
 
   useEffect(() => {
-    fetChUser();
+    fetchUser();
   }, []);
 
   return (

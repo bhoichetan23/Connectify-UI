@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { BASE_URL } from "../utils/constants";
+import  BASE_URL  from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
 
 const NavBar = () => {
@@ -15,6 +15,7 @@ const NavBar = () => {
       dispatch(removeUser());
       return navigate("/login");
     } catch (err) {
+      // Error logic maybe redirect to error page
       console.log(err);
     }
   };
