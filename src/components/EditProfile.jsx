@@ -1,8 +1,8 @@
-import React from "react";
-import axios from "axios";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import UserCard from "./UserCard";
+import axios from "axios";
 import BASE_URL from "../utils/constants";
+import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 const EditProfile = ({ user }) => {
@@ -17,6 +17,8 @@ const EditProfile = ({ user }) => {
   const [showToast, setShowToast] = useState(false);
 
   const saveProfile = async () => {
+    //Clear Errors
+    setError("");
     try {
       const res = await axios.patch(
         BASE_URL + "/profile/edit",
@@ -30,17 +32,15 @@ const EditProfile = ({ user }) => {
         },
         { withCredentials: true }
       );
+      dispatch(addUser(res?.data?.data));
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 3000);
     } catch (err) {
       setError(err.response.data);
     }
   };
-  dispatch(addUser(res?.data?.data));
-  setShowToast(true);
-  showToast(
-    setTimeout(() => {
-      setShowToast(false);
-    }, 3000)
-  );
 
   return (
     <>
@@ -140,5 +140,4 @@ const EditProfile = ({ user }) => {
     </>
   );
 };
-
 export default EditProfile;
